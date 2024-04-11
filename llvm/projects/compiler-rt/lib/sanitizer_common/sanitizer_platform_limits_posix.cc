@@ -937,17 +937,23 @@ CHECK_SIZE_AND_OFFSET(mntent, mnt_passno);
 
 CHECK_TYPE_SIZE(ether_addr);
 
-#if SANITIZER_LINUX && !SANITIZER_ANDROID
+#if (SANITIZER_LINUX || SANITIZER_FREEBSD) && !SANITIZER_ANDROID
 CHECK_TYPE_SIZE(ipc_perm);
+# if SANITIZER_FREEBSD
+CHECK_SIZE_AND_OFFSET(ipc_perm, key);
+CHECK_SIZE_AND_OFFSET(ipc_perm, seq);
+# else
 CHECK_SIZE_AND_OFFSET(ipc_perm, __key);
+CHECK_SIZE_AND_OFFSET(ipc_perm, __seq);
+# endif
 CHECK_SIZE_AND_OFFSET(ipc_perm, uid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, gid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, cuid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, cgid);
-#if !SANITIZER_LINUX || __GLIBC_PREREQ(2, 31)
-  CHECK_SIZE_AND_OFFSET(ipc_perm, mode);
-#endif
-CHECK_SIZE_AND_OFFSET(ipc_perm, __seq);
+// #if !defined(__aarch64__) || !SANITIZER_LINUX || __GLIBC_PREREQ (2, 21)
+// /* On aarch64 glibc 2.20 and earlier provided incorrect mode field.  */
+// CHECK_SIZE_AND_OFFSET(ipc_perm, mode);
+// #endif
 
 CHECK_TYPE_SIZE(shmid_ds);
 CHECK_SIZE_AND_OFFSET(shmid_ds, shm_perm);

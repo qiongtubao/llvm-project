@@ -104,6 +104,7 @@ void GetPcSpBp(void *context, uptr *pc, uptr *sp, uptr *bp) {
 # error "Unsupported arch"
 #endif
 }
+#include <signal.h>
 
 bool AsanInterceptsSignal(int signum) {
   return signum == SIGSEGV && flags()->handle_segv;

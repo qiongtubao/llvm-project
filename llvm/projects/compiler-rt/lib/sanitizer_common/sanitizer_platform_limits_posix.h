@@ -986,6 +986,7 @@ namespace __sanitizer {
   COMPILER_CHECK(offsetof(__sanitizer_##CLASS, MEMBER) ==          \
                  offsetof(CLASS, MEMBER))
 
+
 // For sigaction, which is a function and struct at the same time,
 // and thus requires explicit "struct" in sizeof() expression.
 #define CHECK_STRUCT_SIZE_AND_OFFSET(CLASS, MEMBER)                       \
