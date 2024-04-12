@@ -14,7 +14,7 @@
 
 // C Includes
 #ifndef LLDB_DISABLE_POSIX
-#include <sys/sysctl.h>
+// #include <sys/sysctl.h>
 #endif
 
 // C++ Includes
