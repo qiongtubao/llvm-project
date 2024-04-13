@@ -36,6 +36,7 @@
  */
 
 #ifndef _REGEX_H_
+#include <_regex.h>
 #define	_REGEX_H_
 
 #include <sys/types.h>
