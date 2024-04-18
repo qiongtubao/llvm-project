@@ -37,7 +37,5 @@ ifeq ($(uname_M), x86_64)
 	MAC_SDK_LIB=-isysroot  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 endif
 
-
-
 all:
-	$(LLVM_PROJECT_DIR)/llvm/latte/install/bin/clang -S -m32 latte.c -o latte-32bit.S $(MAC_SDK_LIB)
+	$(LLVM_PROJECT_DIR)/llvm/latte/install/bin/clang  latte.c -o latte $(MAC_SDK_LIB)
