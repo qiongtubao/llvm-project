@@ -27,8 +27,12 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
+ #include <stdio.h>
+#ifdef __linux__
+  //ubuntu22.04 stdlib.h和malloc.h中的malloc和free冲突
+#else 
+  #include <stdlib.h>
+#endif 
 #include <string.h>
 #include <stdarg.h>
 #include <sys/mman.h>
@@ -349,7 +353,12 @@ bool IsGlobalVar(uptr addr) {
 #ifndef TSAN_GO
 int ExtractResolvFDs(void *state, int *fds, int nfd) {
   int cnt = 0;
-  __res_state *statp = (__res_state*)state;
+  #ifdef __linux__
+  //ubuntu22.04
+    struct __res_state *statp = (struct __res_state*)state;
+  #else 
+    __res_state *statp = (__res_state*)state;
+  #endif
   for (int i = 0; i < MAXNS && cnt < nfd; i++) {
     if (statp->_u._ext.nsaddrs[i] && statp->_u._ext.nssocks[i] != -1)
       fds[cnt++] = statp->_u._ext.nssocks[i];
