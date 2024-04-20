@@ -36,7 +36,9 @@
  */
 
 #ifndef _REGEX_H_
+#if defined(__APPLE__)
 #include <_regex.h>
+#endif
 #define	_REGEX_H_
 
 #include <sys/types.h>
