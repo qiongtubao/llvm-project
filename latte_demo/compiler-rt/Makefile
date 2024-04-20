@@ -33,8 +33,10 @@ uname_M := $(shell sh -c 'uname -m 2>/dev/null || echo not')
 LLVM_PROJECT_DIR := $(shell sh -c 'readlink -f ../../')
 
 MAC_SDK_LIB=
-ifeq ($(uname_M), x86_64)
-	MAC_SDK_LIB=-isysroot  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+ifeq ($(uname_S), Darwin)
+	ifeq ($(uname_M), x86_64) 
+		MAC_SDK_LIB=-isysroot  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+	endif
 endif
 
 
