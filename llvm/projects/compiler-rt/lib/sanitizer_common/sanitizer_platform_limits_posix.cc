@@ -950,7 +950,9 @@ CHECK_SIZE_AND_OFFSET(ipc_perm, uid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, gid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, cuid);
 CHECK_SIZE_AND_OFFSET(ipc_perm, cgid);
-CHECK_SIZE_AND_OFFSET(ipc_perm, mode);
+#if defined(__APPLE__)
+  CHECK_SIZE_AND_OFFSET(ipc_perm, mode);
+#endif
 CHECK_SIZE_AND_OFFSET(ipc_perm, __seq);
 
 CHECK_TYPE_SIZE(shmid_ds);
