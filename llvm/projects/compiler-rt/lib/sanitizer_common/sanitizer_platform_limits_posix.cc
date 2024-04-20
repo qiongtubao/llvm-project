@@ -83,8 +83,13 @@
 #include <sys/statvfs.h>
 #include <sys/timex.h>
 #include <sys/user.h>
-#include <sys/ustat.h>
-#include <linux/cyclades.h>
+#ifdef __linux__
+  //主要针对ubuntu22.04
+  #include "cyclades.h"
+#else 
+  #include <sys/ustat.h>
+  #include <linux/cyclades.h>
+#endif
 #include <linux/if_eql.h>
 #include <linux/if_plip.h>
 #include <linux/lp.h>
