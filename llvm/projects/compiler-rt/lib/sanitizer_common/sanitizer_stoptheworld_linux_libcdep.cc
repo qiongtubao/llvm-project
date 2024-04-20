@@ -240,11 +240,21 @@ static int TracerThread(void* argument) {
 
   // Alternate stack for signal handling.
   InternalScopedBuffer<char> handler_stack_memory(kHandlerStackSize);
-  struct sigaltstack handler_stack;
-  internal_memset(&handler_stack, 0, sizeof(handler_stack));
-  handler_stack.ss_sp = handler_stack_memory.data();
-  handler_stack.ss_size = kHandlerStackSize;
-  internal_sigaltstack(&handler_stack, NULL);
+  #ifdef __linux__
+    //ubuntu22.04
+    stack_t handler_stack;
+    internal_memset(&handler_stack, 0, sizeof(handler_stack));
+    handler_stack.ss_sp = handler_stack_memory.data();
+    handler_stack.ss_size = kHandlerStackSize;
+    internal_sigaltstack(&handler_stack, NULL);
+  #else 
+    struct sigaltstack handler_stack;
+    internal_memset(&handler_stack, 0, sizeof(handler_stack));
+    handler_stack.ss_sp = handler_stack_memory.data();
+    handler_stack.ss_size = kHandlerStackSize;
+    internal_sigaltstack(&handler_stack, NULL);
+  #endif
+  
 
   // Install our handler for fatal signals. Other signals should be blocked by
   // the mask we inherited from the caller thread.
