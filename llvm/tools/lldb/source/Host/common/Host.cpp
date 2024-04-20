@@ -27,7 +27,11 @@
 
 #if !defined (__GNU__) && !defined (_WIN32)
 // Does not exist under GNU/HURD or Windows
-#include <sys/sysctl.h>
+#ifdef __linux__
+    //ubuntu22.04
+#else 
+    #include <sys/sysctl.h>
+#endif
 #endif
 
 #if defined (__APPLE__)
