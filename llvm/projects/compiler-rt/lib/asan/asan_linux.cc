@@ -104,7 +104,10 @@ void GetPcSpBp(void *context, uptr *pc, uptr *sp, uptr *bp) {
 # error "Unsupported arch"
 #endif
 }
-
+#ifdef __linux__
+  //ubuntu22.04
+  #include <signal.h>
+#endif 
 bool AsanInterceptsSignal(int signum) {
   return signum == SIGSEGV && flags()->handle_segv;
 }
