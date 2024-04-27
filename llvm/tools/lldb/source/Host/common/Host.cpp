@@ -1791,10 +1791,16 @@ Host::LaunchProcess (ProcessLaunchInfo &launch_info)
 
 #ifndef _WIN32
 
+
 size_t
 Host::GetPageSize()
 {
-    return ::getpagesize();
+    //macos x86机器上 查看pyconfig.h _POSIX_C_SOURCE 为200112L
+    #if __APPLE__ && (!defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE == 200112L)
+        return 4096;
+    #else 
+        return ::getpagesize();
+    #endif
 }
 
 uint32_t
