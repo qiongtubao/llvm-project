@@ -6,4 +6,6 @@
  ```
 
  ---
- -ccl参数的clang 自身
+ 
+ make test
+Severity: 4 File: /usr/include/stdio.h Line: 33 Col: 10 Category: "Lexical or Preprocessor Issue" Message: 'stddef.h' file not found
