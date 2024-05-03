@@ -6,7 +6,12 @@ extern "C" {
 
 using namespace llvm;
 
-//第2个参数是文件名？
+//这段代码是使用C++的命令行参数库（cl）
+//定义了一个名为FileName的命令行选项。
+//这个选项是一个字符串类型的参数，用于指定输入文件的名称。
+//使用cl::Positional表示这个选项是一个位置参数，
+//cl::desc用于描述这个选项，
+//cl::Required表示这个选项是必需的。
 static cl::opt<std::string>
 FileName(cl::Positional, cl::desc("Input file"), cl::Required);
 

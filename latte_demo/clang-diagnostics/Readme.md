@@ -9,3 +9,37 @@
  
  make test
 Severity: 4 File: /usr/include/stdio.h Line: 33 Col: 10 Category: "Lexical or Preprocessor Issue" Message: 'stddef.h' file not found
+
+
+---
+make min 
+
+/home/dong/Documents/latte/llvm-project/llvm/latte/install/bin/clang -cc1 -dump-tokens min.c
+//使用clang/Basic/TokenKinds.def找到
+//int，if 都属于KEYWORD， KEYWORD(X,Y) TOK(kw_ ## X)
+int 'int'	 [StartOfLine]	Loc=<min.c:1:1>
+//identifier 是不匹配保留字符串的前缀，属于TOK
+identifier 'min'	 [LeadingSpace]	Loc=<min.c:1:5>
+//l_paren是（的前缀 ，属于PUNCTUATOR  ，PUNCTUATOR(X,Y) TOK(X)
+l_paren '('		Loc=<min.c:1:8>
+int 'int'		Loc=<min.c:1:9>
+identifier 'a'	 [LeadingSpace]	Loc=<min.c:1:14>
+comma ','		Loc=<min.c:1:15>
+int 'int'	 [LeadingSpace]	Loc=<min.c:1:17>
+identifier 'b'	 [LeadingSpace]	Loc=<min.c:1:21>
+r_paren ')'		Loc=<min.c:1:22>
+l_brace '{'	 [LeadingSpace]	Loc=<min.c:1:24>
+if 'if'	 [StartOfLine] [LeadingSpace]	Loc=<min.c:2:5>
+l_paren '('	 [LeadingSpace]	Loc=<min.c:2:8>
+identifier 'a'		Loc=<min.c:2:9>
+less '<'	 [LeadingSpace]	Loc=<min.c:2:11>
+identifier 'b'	 [LeadingSpace]	Loc=<min.c:2:13>
+r_paren ')'		Loc=<min.c:2:14>
+return 'return'	 [StartOfLine] [LeadingSpace]	Loc=<min.c:3:9>
+identifier 'a'	 [LeadingSpace]	Loc=<min.c:3:16>
+semi ';'		Loc=<min.c:3:17>
+return 'return'	 [StartOfLine] [LeadingSpace]	Loc=<min.c:4:5>
+identifier 'b'	 [LeadingSpace]	Loc=<min.c:4:12>
+semi ';'		Loc=<min.c:4:13>
+r_brace '}'	 [StartOfLine]	Loc=<min.c:5:1>
+eof ''		Loc=<min.c:5:2>

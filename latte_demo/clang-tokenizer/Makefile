@@ -1,6 +1,7 @@
 LLVM_PROJECT_DIR := $(shell sh -c 'readlink -f ../../')
 LLVM_CONFIG?=$(LLVM_PROJECT_DIR)/llvm/latte/install/bin/llvm-config 
 CXX=$(LLVM_PROJECT_DIR)/llvm/latte/install/bin/clang++
+CC=$(LLVM_PROJECT_DIR)/llvm/latte/install/bin/clang
 
 ifndef VERBOSE
 QUIET:=@
