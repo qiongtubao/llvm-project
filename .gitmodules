@@ -1,0 +1,6 @@
+[submodule "deps/dragonegg"]
+	path = deps/dragonegg
+	url = https://github.com/qiongtubao/dragonegg.git
+[submodule "deps/gcc"]
+	path = deps/gcc
+	url = https://github.com/qiongtubao/gcc.git
