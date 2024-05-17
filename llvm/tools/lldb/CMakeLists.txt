@@ -86,7 +86,27 @@ macro(add_lldb_definitions)
 endmacro(add_lldb_definitions)
 
 if (NOT LLDB_DISABLE_PYTHON)
-  find_package(PythonLibs REQUIRED)
+if(POLICY CMP0094) # CMP0094是在CMake 3.12中引入的
+  cmake_policy(SET CMP0094 NEW) # 推荐设置，以支持新的Python模块查找方式
+
+    # 对于Python 3
+    # find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+    # if(Python3_FOUND)
+    #     # 使用Python3的变量，如Python3_LIBRARIES, Python3_INCLUDE_DIRS等
+    # endif()
+
+    # 或者对于Python 2，如果你还需要支持的话
+    find_package(Python2 COMPONENTS Interpreter Development REQUIRED)
+    if(Python2_FOUND)
+        # 使用Python2的变量，如Python2_LIBRARIES, Python2_INCLUDE_DIRS等
+    endif()
+  else()
+    # 对于CMake版本低于3.12的情况
+    find_package(PythonLibs REQUIRED)
+    if(PYTHONLIBS_FOUND)
+        # 使用旧的变量，如PYTHON_LIBRARIES, PYTHON_INCLUDE_PATH等
+    endif()
+  endif()
   include_directories(${PYTHON_INCLUDE_DIRS})
 endif()
 include_directories(../clang/include)
