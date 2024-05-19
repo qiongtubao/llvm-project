@@ -152,7 +152,9 @@ public:
     IntrusiveRefCntPtr(IntrusiveRefCntPtr&& S) : Obj(S.Obj) {
       S.Obj = nullptr;
     }
-
+    template <class X>
+    friend class IntrusiveRefCntPtr;
+    
     template <class X>
     IntrusiveRefCntPtr(IntrusiveRefCntPtr<X>&& S) : Obj(S.get()) {
       S.Obj = 0;
